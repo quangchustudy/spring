@@ -6,7 +6,10 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-#      - REPOSITORY_URI=068106932164.dkr.ecr.ap-southeast-1.amazonaws.com/acbs-ekyc-java
+      - REPOSITORY_URI_PRODUCT=243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/product
+      - REPOSITORY_URI_REVIEW=243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/review
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
 #      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
@@ -15,12 +18,17 @@ phases:
       - java --version
       - ./gradlew build --no-scan
       - docker-compose build
+      - docker tag chapter04-product $REPOSITORY_URI_PRODUCT:IMAGE_TAG
+      - docker tag chapter04-review $REPOSITORY_URI_REVIEW:IMAGE_TAG
 #      - echo Build started on `date`
 #      - echo Building the Docker image...
 #      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
 #      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
+      - docker push $REPOSITORY_URI_PRODUCT:latest
+      - docker push $REPOSITORY_URI_REVIEW:latest
 #      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
