@@ -24,11 +24,11 @@ server.port: 8080
 
 app:
   product-service:
-    host: product
+    host: product.test.com
     port: 8080
   recommendation-service:
-    host: recommendation
+    host: recommendation.test.com
     port: 8080
   review-service:
-    host: review
+    host: review.test.com
     port: 8080
