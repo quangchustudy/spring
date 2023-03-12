@@ -9,6 +9,7 @@ phases:
     commands:
       - cd Chapter04
       - ./gradlew --version
+      - java --version
       - ./gradlew :microservices:product-service:build
       - docker-compose build
 #      - echo Build started on `date`
