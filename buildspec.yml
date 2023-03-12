@@ -10,7 +10,7 @@ phases:
       - cd Chapter04
       - ./gradlew --version
       - java --version
-      - ./gradlew :microservices:product-service:build
+      - ./gradlew build --no-scan
       - docker-compose build
 #      - echo Build started on `date`
 #      - echo Building the Docker image...
