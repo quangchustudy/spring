@@ -4,6 +4,9 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+#      - REPOSITORY_URI=068106932164.dkr.ecr.ap-southeast-1.amazonaws.com/acbs-ekyc-java
 #      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
