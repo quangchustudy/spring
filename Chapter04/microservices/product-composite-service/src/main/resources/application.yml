@@ -3,13 +3,13 @@ server.error.include-message: always
 
 app:
   product-service:
-    host: localhost
+    host: product-service.local
     port: 7001
   recommendation-service:
-    host: localhost
+    host: recommendation-service.local
     port: 7002
   review-service:
-    host: localhost
+    host: review-service.local
     port: 7003
 
 logging:
@@ -17,18 +17,18 @@ logging:
     root: INFO
     se.magnus: DEBUG
 
----
-spring.config.activate.on-profile: docker
-
-server.port: 8080
-
-app:
-  product-service:
-    host: product.test.com
-    port: 8080
-  recommendation-service:
-    host: recommendation.test.com
-    port: 8080
-  review-service:
-    host: review.test.com
-    port: 8080
+#---
+#spring.config.activate.on-profile: docker
+#
+#server.port: 8080
+#
+#app:
+#  product-service:
+#    host: product
+#    port: 8080
+#  recommendation-service:
+#    host: recommendation
+#    port: 8080
+#  review-service:
+#    host: review
+#    port: 8080
