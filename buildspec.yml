@@ -55,6 +55,6 @@ phases:
       - cat review.json
       - cat recommendation.json
       - cat product_composite.json
-artifacts:
-  files:
-    - product_composite.json
+#artifacts:
+#  files:
+#    - product_composite.json
