@@ -3,13 +3,13 @@ server.error.include-message: always
 
 app:
   product-service:
-    host: product-service.test.com
+    host: localhost
     port: 7001
   recommendation-service:
-    host: recommendation-service.test.com
+    host: localhost
     port: 7002
   review-service:
-    host: review-service.test.com
+    host: localhost
     port: 7003
 
 logging:
