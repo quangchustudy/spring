@@ -47,6 +47,7 @@ phases:
       - docker push $REPOSITORY_URI_PRODUCT_COMPOSITE:$IMAGE_TAG
 #      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Writing image definitions file...
+      - cd ..
       - printf '[{"name":"product-service","imageUri":"%s"}]' $REPOSITORY_URI_PRODUCT:$IMAGE_TAG > product.json
       - printf '[{"name":"review-service","imageUri":"%s"}]' $REPOSITORY_URI_REVIEW:$IMAGE_TAG > review.json
       - printf '[{"name":"recommendation-service","imageUri":"%s"}]' $REPOSITORY_URI_RECOMMENDATION:$IMAGE_TAG > recommendation.json
@@ -55,6 +56,6 @@ phases:
       - cat review.json
       - cat recommendation.json
       - cat product_composite.json
-#artifacts:
-#  files:
-#    - product_composite.json
+artifacts:
+  files:
+    - product_composite.json
