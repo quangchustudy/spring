@@ -4,11 +4,10 @@ mkdir microservices
 cd microservices
 
 spring init \
---boot-version=2.5.2 \
---build=gradle \
---java-version=1.8 \
+--boot-version=3.0.4 \
+--java-version=17 \
 --packaging=jar \
---name=product-service \
+--name product-service \
 --package-name=se.magnus.microservices.core.product \
 --groupId=se.magnus.microservices.core.product \
 --dependencies=actuator,webflux \
@@ -16,11 +15,10 @@ spring init \
 product-service
 
 spring init \
---boot-version=2.5.2 \
---build=gradle \
---java-version=1.8 \
+--boot-version=3.0.4 \
+--java-version=17 \
 --packaging=jar \
---name=review-service \
+--name review-service \
 --package-name=se.magnus.microservices.core.review \
 --groupId=se.magnus.microservices.core.review \
 --dependencies=actuator,webflux \
@@ -28,11 +26,10 @@ spring init \
 review-service
 
 spring init \
---boot-version=2.5.2 \
---build=gradle \
---java-version=1.8 \
+--boot-version=3.0.4 \
+--java-version=17 \
 --packaging=jar \
---name=recommendation-service \
+--name recommendation-service \
 --package-name=se.magnus.microservices.core.recommendation \
 --groupId=se.magnus.microservices.core.recommendation \
 --dependencies=actuator,webflux \
@@ -40,11 +37,10 @@ spring init \
 recommendation-service
 
 spring init \
---boot-version=2.5.2 \
---build=gradle \
---java-version=1.8 \
+--boot-version=3.0.4 \
+--java-version=17 \
 --packaging=jar \
---name=product-composite-service \
+--name product-composite-service \
 --package-name=se.magnus.microservices.composite.product \
 --groupId=se.magnus.microservices.composite.product \
 --dependencies=actuator,webflux \
@@ -52,3 +48,6 @@ spring init \
 product-composite-service
 
 cd ..
+
+
+

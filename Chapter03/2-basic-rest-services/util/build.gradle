@@ -5,14 +5,14 @@ plugins {
 
 group = 'se.magnus.microservices.util'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
 }
 
 ext {
-    springBootVersion = '2.5.2'
+    springBootVersion = '2.7.9'
 }
 
 dependencies {
