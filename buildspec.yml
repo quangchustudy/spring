@@ -18,10 +18,10 @@ phases:
       - java --version
       - ./gradlew build --no-scan
       - docker-compose build
-      - docker tag chapter04-product:latest $REPOSITORY_URI_PRODUCT:$IMAGE_TAG
-      - docker tag chapter04-review:latest $REPOSITORY_URI_REVIEW:$IMAGE_TAG
-      - docker tag chapter04-product:latest $REPOSITORY_URI_PRODUCT:latest
-      - docker tag chapter04-review:latest $REPOSITORY_URI_REVIEW:latest
+      - docker tag chapter04_product:latest $REPOSITORY_URI_PRODUCT:$IMAGE_TAG
+      - docker tag chapter04_review:latest $REPOSITORY_URI_REVIEW:$IMAGE_TAG
+      - docker tag chapter04_product:latest $REPOSITORY_URI_PRODUCT:latest
+      - docker tag chapter04_review:latest $REPOSITORY_URI_REVIEW:latest
 #      - echo Build started on `date`
 #      - echo Building the Docker image...
 #      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
