@@ -19,15 +19,15 @@ phases:
       - ./gradlew --version
       - java --version
       - ./gradlew build --no-scan
-      - docker-compose build
-      - docker tag chapter04_product:latest $REPOSITORY_URI_PRODUCT:$IMAGE_TAG
-      - docker tag chapter04_review:latest $REPOSITORY_URI_REVIEW:$IMAGE_TAG
-      - docker tag chapter04_recommendation:latest $REPOSITORY_URI_RECOMMENDATION:$IMAGE_TAG
-      - docker tag chapter04_product-composite:latest $REPOSITORY_URI_PRODUCT_COMPOSITE:$IMAGE_TAG
-      - docker tag chapter04_product:latest $REPOSITORY_URI_PRODUCT:latest
-      - docker tag chapter04_review:latest $REPOSITORY_URI_REVIEW:latest
-      - docker tag chapter04_recommendation:latest $REPOSITORY_URI_RECOMMENDATION:latest
-      - docker tag chapter04_product-composite:latest $REPOSITORY_URI_PRODUCT_COMPOSITE:latest
+      - docker-compose -f docker-compose-ecs.yml build
+      - docker tag ecs_product:latest $REPOSITORY_URI_PRODUCT:$IMAGE_TAG
+      - docker tag ecs_review:latest $REPOSITORY_URI_REVIEW:$IMAGE_TAG
+      - docker tag ecs_recommendation:latest $REPOSITORY_URI_RECOMMENDATION:$IMAGE_TAG
+      - docker tag ecs_product-composite:latest $REPOSITORY_URI_PRODUCT_COMPOSITE:$IMAGE_TAG
+      - docker tag ecs_product:latest $REPOSITORY_URI_PRODUCT:latest
+      - docker tag ecs_review:latest $REPOSITORY_URI_REVIEW:latest
+      - docker tag ecs_recommendation:latest $REPOSITORY_URI_RECOMMENDATION:latest
+      - docker tag ecs_product-composite:latest $REPOSITORY_URI_PRODUCT_COMPOSITE:latest
 #      - echo Build started on `date`
 #      - echo Building the Docker image...
 #      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .

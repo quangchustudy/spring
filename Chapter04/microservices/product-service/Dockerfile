@@ -12,4 +12,4 @@ COPY --from=builder extracted/application/ ./
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=ecs", "org.springframework.boot.loader.JarLauncher"]
