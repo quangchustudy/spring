@@ -1,9 +1,13 @@
 server.port: 7001
 server.error.include-message: always
 
+#spring.data.mongodb:
+#  host: localhost
+#  port: 27017
+#  database: product-db
+
 spring.data.mongodb:
-  host: localhost
-  port: 27017
+  uri: mongodb://quangchu:mongodb123$@docdb-2023-03-14-13-50-53.cluster-cltvrdi2i5ee.ap-southeast-1.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
   database: product-db
 
 logging:

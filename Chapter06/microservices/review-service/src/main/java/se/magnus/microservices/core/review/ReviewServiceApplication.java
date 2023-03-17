@@ -16,7 +16,9 @@ public class ReviewServiceApplication {
   public static void main(String[] args) {
     ConfigurableApplicationContext ctx = SpringApplication.run(ReviewServiceApplication.class, args);
 
-    String mysqlUri = ctx.getEnvironment().getProperty("spring.datasource.url");
-    LOG.info("Connected to MySQL: " + mysqlUri);
+    String mysqlUriWriter = ctx.getEnvironment().getProperty("spring.datasource.jdbc-url");
+    String mysqlUriReader = ctx.getEnvironment().getProperty("spring.read.jdbc-url");
+    LOG.info("Connected to readMySQL: " + mysqlUriReader);
+    LOG.info("Connected to writeMySQL: " + mysqlUriWriter);
   }
 }

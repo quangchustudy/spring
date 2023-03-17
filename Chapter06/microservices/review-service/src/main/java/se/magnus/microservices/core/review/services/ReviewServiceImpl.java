@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import se.magnus.api.core.review.Review;
 import se.magnus.api.core.review.ReviewService;
 import se.magnus.api.exceptions.InvalidInputException;
-import se.magnus.microservices.core.review.persistence.ReviewEntity;
-import se.magnus.microservices.core.review.persistence.ReviewRepository;
+import se.magnus.microservices.core.review.persistence.read.entities.ReadReviewEntity;
+import se.magnus.microservices.core.review.persistence.read.repo.ReadReviewRepository;
+import se.magnus.microservices.core.review.persistence.write.entities.ReviewEntity;
+import se.magnus.microservices.core.review.persistence.write.repo.ReviewRepository;
 import se.magnus.util.http.ServiceUtil;
 
 @RestController
@@ -20,15 +22,18 @@ public class ReviewServiceImpl implements ReviewService {
 
   private final ReviewRepository repository;
 
+  private final ReadReviewRepository readRepository;
+
   private final ReviewMapper mapper;
 
   private final ServiceUtil serviceUtil;
 
   @Autowired
-  public ReviewServiceImpl(ReviewRepository repository, ReviewMapper mapper, ServiceUtil serviceUtil) {
+  public ReviewServiceImpl(ReviewRepository repository, ReviewMapper mapper, ServiceUtil serviceUtil, ReadReviewRepository readReviewRepository) {
     this.repository = repository;
     this.mapper = mapper;
     this.serviceUtil = serviceUtil;
+    this.readRepository = readReviewRepository;
   }
 
   @Override
@@ -51,9 +56,11 @@ public class ReviewServiceImpl implements ReviewService {
     if (productId < 1) {
       throw new InvalidInputException("Invalid productId: " + productId);
     }
-    
-    List<ReviewEntity> entityList = repository.findByProductId(productId);
-    List<Review> list = mapper.entityListToApiList(entityList);
+
+//    List<ReviewEntity> entityList = readRepository.findByProductId(productId);
+    List<ReadReviewEntity> entityList = readRepository.findByProductId(productId);
+//    List<Review> list = mapper.entityListToApiList(entityList);
+    List<Review> list = mapper.entityReadListToApiList(entityList);
     list.forEach(e -> e.setServiceAddress(serviceUtil.getServiceAddress()));
 
     LOG.debug("getReviews: response size: {}", list.size());

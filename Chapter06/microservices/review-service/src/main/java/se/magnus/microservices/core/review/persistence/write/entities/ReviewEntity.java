@@ -1,4 +1,6 @@
-package se.magnus.microservices.core.review.persistence;
+package se.magnus.microservices.core.review.persistence.write.entities;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.*;
 

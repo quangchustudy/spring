@@ -2,14 +2,66 @@ server.port: 7003
 server.error.include-message: always
 
 # Strongly recommend to set this property to "none" in a production environment!
+#spring.jpa.hibernate.ddl-auto: update
+
+#spring.datasource:
+#  url: jdbc:mysql://localhost/review-db
+#  username: user
+#  password: pwd
+
+#spring.datasource:
+#  url: jdbc:mysql://database-2.cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#  username: quangchu
+#  password: mysql123
+
+#spring.datasource:
+#  url: jdbc:mysql://database-1.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#  username: quangchu
+#  password: mysql123
+
+#spring.datasource:
+#  url: jdbc:mysql://database-3.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#  username: quangchu
+#  password: mysql123
+
+#spring.datasource:
+#  writer:
+#    url: jdbc:mysql://database-3.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#    username: quangchu
+#    password: mysql123
+#  reader:
+#    url: jdbc:mysql://database-3.cluster-ro-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#    username: quangchu
+#    password: mysql123
+#database1.datasource:
+#  url: jdbc:mysql://database-3.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#  username: quangchu
+#  password: mysql123
+#database2.datasource:
+#  url: jdbc:mysql://database-3.cluster-ro-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+#  username: quangchu
+#  password: mysql123
+
 spring.jpa.hibernate.ddl-auto: update
 
-spring.datasource:
-  url: jdbc:mysql://localhost/review-db
-  username: user
-  password: pwd
 
+spring.datasource:
+  jdbc-url: jdbc:mysql://database-3.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+  username: quangchu
+  password: mysql123
+  driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring.read:
+  jdbc-url: jdbc:mysql://database-3.cluster-ro-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
+  username: quangchu
+  password: mysql123
+  driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+#database1.datasource.hikari.initializationFailTimeout: 60000
+#database2.datasource.hikari.initializationFailTimeout: 60000
 spring.datasource.hikari.initializationFailTimeout: 60000
+
 
 logging:
   level:
