@@ -15,7 +15,7 @@ phases:
 #      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
-      - cd Chapter05
+      - cd Chapter06
       - ./gradlew --version
       - java --version
       - ./gradlew build --no-scan
@@ -58,7 +58,7 @@ phases:
       - cat product_composite.json
 artifacts:
   files:
-    - product_composite.jso
+    - product_composite.json
     - recommendation.json
     - review.json
     - product.json
