@@ -46,13 +46,13 @@ spring.jpa.hibernate.ddl-auto: update
 
 
 spring.datasource:
-  jdbc-url: jdbc:mysql://database-3.cluster-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db?enabledTLSProtocols=TLSv1.2
+  jdbc-url: jdbc:mysql://writer.cluster-custom-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db?enabledTLSProtocols=TLSv1.2
   username: quangchu
   password: mysql123
   driver-class-name: com.mysql.cj.jdbc.Driver
 
 spring.read:
-  jdbc-url: jdbc:mysql://database-3.cluster-ro-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db?enabledTLSProtocols=TLSv1.2
+  jdbc-url: jdbc:mysql://reader.cluster-custom-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db?enabledTLSProtocols=TLSv1.2
   username: quangchu
   password: mysql123
   driver-class-name: com.mysql.cj.jdbc.Driver
