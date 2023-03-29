@@ -41,7 +41,7 @@ server.error.include-message: always
 #  url: jdbc:mysql://database-3.cluster-ro-cltvrdi2i5ee.ap-southeast-1.rds.amazonaws.com/review_db
 #  username: quangchu
 #  password: mysql123
-
+#test
 spring.jpa.hibernate.ddl-auto: update
 
 
