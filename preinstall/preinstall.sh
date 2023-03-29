@@ -33,7 +33,7 @@ else
         docker pull $1:$2
 #        docker tag adoptopenjdk:latest 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/adoptopenjdk:latest
         docker tag $1:$2 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/$1:$2
-    #    $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+        $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
 #    docker push 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/adoptopenjdk:latest
         docker push 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/$1:$2
         echo "Image uploaded to ECR Hub: $1:$2"
