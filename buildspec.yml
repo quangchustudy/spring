@@ -59,8 +59,8 @@ phases:
       - printf '[{"name":"product-service","imageUri":"%s"}]' $REPOSITORY_URI_PRODUCT:$IMAGE_TAG > product.json
       - printf '[{"name":"review-service","imageUri":"%s"}]' $REPOSITORY_URI_REVIEW:$IMAGE_TAG > review.json
       - printf '[{"name":"recommendation-service","imageUri":"%s"}]' $REPOSITORY_URI_RECOMMENDATION:$IMAGE_TAG > recommendation.json
-#      - printf '[{"name":"product-composite-service","imageUri":"%s"}]' $REPOSITORY_URI_PRODUCT_COMPOSITE:$IMAGE_TAG > product_composite.json
-      - printf "" > product_composite.json
+      - printf '[{"name":"product-composite-service","imageUri":"%s"}]' $REPOSITORY_URI_PRODUCT_COMPOSITE:$IMAGE_TAG > product_composite.json
+#      - printf "" > product_composite.json
       - cat product.json
       - cat review.json
       - cat recommendation.json
