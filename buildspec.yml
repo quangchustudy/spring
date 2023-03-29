@@ -3,6 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - echo #{SourceVariables.CommitMessage}
       - echo Logging in to Amazon ECR...
       - aws --version
       - cd preinstall
