@@ -1,16 +1,20 @@
 package se.magnus.microservices.composite.product;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @SpringBootApplication
 @ComponentScan("se.magnus")
@@ -35,6 +39,8 @@ public class ProductCompositeServiceApplication {
   */
   @Bean
   public OpenAPI getOpenApiDocumentation() {
+    Server server = new Server();
+    server.setUrl("https://thefreedom.dev");
     return new OpenAPI()
       .info(new Info().title(apiTitle)
         .description(apiDescription)
@@ -49,7 +55,8 @@ public class ProductCompositeServiceApplication {
           .url(apiLicenseUrl)))
       .externalDocs(new ExternalDocumentation()
         .description(apiExternalDocDesc)
-        .url(apiExternalDocUrl));
+        .url(apiExternalDocUrl))
+            .servers(List.of(server));
   }
 
   @Bean
