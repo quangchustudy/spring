@@ -5,6 +5,9 @@ springdoc:
   pathsToMatch: /**
 
 api:
+  servers:
+    - url: https://thefreedom.dev
+      description: Generated server url
 
   common:
     version: 1.0.0
