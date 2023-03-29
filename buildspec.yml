@@ -5,6 +5,10 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - cd preinstall
+      - chmod 777 preinstall.sh
+      - ./preinstall.sh
+      - cd ..
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI_PRODUCT=243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/product
       - REPOSITORY_URI_REVIEW=243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/review
