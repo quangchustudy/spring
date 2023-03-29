@@ -10,6 +10,7 @@ else
     echo "Image does not exist on Docker Hub: $image_name:$image_tag"
     docker pull adoptopenjdk:16_36-jre-hotspot
     docker tag $image_name:$image_tag public.ecr.aws/u8r7l3u8/$image_name:$image_tag
+    $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
     docker push public.ecr.aws/u8r7l3u8/$image_name:$image_tag
     echo "Image uploaded to Docker Hub: $image_name:$image_tag"
 fi
