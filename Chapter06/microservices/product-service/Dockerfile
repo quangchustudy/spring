@@ -1,4 +1,4 @@
-FROM 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/adoptopenjdk as builder
+FROM 243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/adoptopenjdk:16_36-jre-hotspot as builder
 WORKDIR extracted
 ADD ./build/libs/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
