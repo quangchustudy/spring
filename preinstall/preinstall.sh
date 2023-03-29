@@ -22,7 +22,7 @@ if [[ $# -lt 2 ]]; then
     echo "Usage: $( basename $0 ) <repository-name> <image-tag>"
     exit 1
 fi
-
+#$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
 IMAGE_META="$( aws ecr describe-images --repository-name=$1 --image-ids=imageTag=$2 2> /dev/null )"
 
 if [[ $? == 0 ]]; then
