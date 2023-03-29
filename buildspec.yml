@@ -8,7 +8,7 @@ phases:
       - aws --version
       - cd preinstall
       - chmod 777 preinstall.sh
-      - ./preinstall.sh
+      - ./preinstall.sh adoptopenjdk 16_36-jre-hotspot
       - cd ..
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI_PRODUCT=243626120307.dkr.ecr.ap-southeast-1.amazonaws.com/product
