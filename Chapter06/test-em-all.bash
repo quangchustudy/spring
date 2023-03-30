@@ -77,7 +77,7 @@ function waitForService() {
   done
   echo "DONE, continues..."
 }
-
+aa
 function recreateComposite() {
   local productId=$1
   local composite=$2
