@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: hands-on
+  repository: quangsa
   tag: latest
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
   args: []
 
 ports:

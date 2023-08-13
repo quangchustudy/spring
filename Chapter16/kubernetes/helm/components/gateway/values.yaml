@@ -21,9 +21,50 @@ readinessProbe:
     port: 8443
 
 service:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 443
     targetPort: 8443
-    nodePort: 30443
+    protocol: TCP
+#service:
+#  type: NodePort
+#  ports:
+#    - port: 443
+#      targetPort: 8443
+#      nodePort: 30443
+
+#fullnameOverride: gateway
+#
+#image:
+#  name: gateway
+#
+#ports:
+#  - containerPort: 443
+#
+#env:
+#  SPRING_PROFILES_ACTIVE: "docker"
+#
+#livenessProbe_enabled: true
+#livenessProbe:
+#  httpGet:
+#    scheme: HTTPS
+#    port: 443
+#readinessProbe_enabled: true
+#readinessProbe:
+#  httpGet:
+#    scheme: HTTPS
+#    port: 443
+#
+#service:
+#  type: LoadBalancer
+#  ports:
+#    - port: 443
+#      targetPort: 443
+#      protocol: TCP
+##service:
+##  type: NodePort
+##  ports:
+##    - port: 443
+##      targetPort: 8443
+##      nodePort: 30443
 
