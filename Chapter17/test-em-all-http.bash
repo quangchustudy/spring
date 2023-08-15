@@ -5,7 +5,7 @@
 #   HOST=localhost PORT=7000 ./test-em-all.bash
 #
 : ${HOST=localhost}
-: ${PORT=8443}
+#: ${PORT=8443}
 : ${USE_K8S=false}
 : ${PROD_ID_REVS_RECS=1}
 : ${PROD_ID_NOT_FOUND=13}
@@ -84,7 +84,7 @@ function waitForService() {
 function testCompositeCreated() {
 
     # Expect that the Product Composite for productId $PROD_ID_REVS_RECS has been created with three recommendations and three reviews
-    if ! assertCurl 200 "curl $AUTH -k http://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS -s"
+    if ! assertCurl 200 "curl $AUTH -k http://$HOST/product-composite/$PROD_ID_REVS_RECS -s"
     then
         echo -n "FAIL"
         return 1
@@ -129,8 +129,8 @@ function recreateComposite() {
   local productId=$1
   local composite=$2
 
-  assertCurl 202 "curl -X DELETE $AUTH -k https://$HOST:$PORT/product-composite/${productId} -s"
-  assertEqual 202 $(curl -X POST -s -k https://$HOST:$PORT/product-composite -H "Content-Type: application/json" -H "Authorization: Bearer $ACCESS_TOKEN" --data "$composite" -w "%{http_code}")
+  assertCurl 202 "curl -X DELETE $AUTH -k http://$HOST/product-composite/${productId} -s"
+  assertEqual 202 $(curl -X POST -s -k http://$HOST/product-composite -H "Content-Type: application/json" -H "Authorization: Bearer $ACCESS_TOKEN" --data "$composite" -w "%{http_code}")
 }
 
 function setupTestdata() {
@@ -187,7 +187,7 @@ function testCircuitBreaker() {
     # Also, verify that we get 500 back and a timeout related error message
     for ((n=0; n<3; n++))
     do
-        assertCurl 500 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS?delay=3 $AUTH -s"
+        assertCurl 500 "curl -k http://$HOST/product-composite/$PROD_ID_REVS_RECS?delay=3 $AUTH -s"
         message=$(echo $RESPONSE | jq -r .message)
         assertEqual "Did not observe any item or terminal signal within 2000ms" "${message:0:57}"
     done
@@ -196,15 +196,15 @@ function testCircuitBreaker() {
     assertEqual "OPEN" "$($EXEC curl -s http://localhost/actuator/health | jq -r .components.circuitBreakers.details.product.details.state)"
 
     # Verify that the circuit breaker now is open by running the slow call again, verify it gets 200 back, i.e. fail fast works, and a response from the fallback method.
-    assertCurl 200 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS?delay=3 $AUTH -s"
+    assertCurl 200 "curl -k http://$HOST/product-composite/$PROD_ID_REVS_RECS?delay=3 $AUTH -s"
     assertEqual "Fallback product$PROD_ID_REVS_RECS" "$(echo "$RESPONSE" | jq -r .name)"
 
     # Also, verify that the circuit breaker is open by running a normal call, verify it also gets 200 back and a response from the fallback method.
-    assertCurl 200 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS $AUTH -s"
+    assertCurl 200 "curl -k http://$HOST/product-composite/$PROD_ID_REVS_RECS $AUTH -s"
     assertEqual "Fallback product$PROD_ID_REVS_RECS" "$(echo "$RESPONSE" | jq -r .name)"
 
     # Verify that a 404 (Not Found) error is returned for a non existing productId ($PROD_ID_NOT_FOUND) from the fallback method.
-    assertCurl 404 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_NOT_FOUND $AUTH -s"
+    assertCurl 404 "curl -k https://$HOST/product-composite/$PROD_ID_NOT_FOUND $AUTH -s"
     assertEqual "Product Id: $PROD_ID_NOT_FOUND not found in fallback cache!" "$(echo $RESPONSE | jq -r .message)"
 
     # Wait for the circuit breaker to transition to the half open state (i.e. max 10 sec)
@@ -218,7 +218,7 @@ function testCircuitBreaker() {
     # Also, verify that we get 200 back and a response based on information in the product database
     for ((n=0; n<3; n++))
     do
-        assertCurl 200 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS $AUTH -s"
+        assertCurl 200 "curl -k http://$HOST/product-composite/$PROD_ID_REVS_RECS $AUTH -s"
         assertEqual "product name C" "$(echo "$RESPONSE" | jq -r .name)"
     done
 
@@ -236,7 +236,7 @@ set -e
 echo "Start Tests:" `date`
 
 echo "HOST=${HOST}"
-echo "PORT=${PORT}"
+#echo "PORT=${PORT}"
 echo "USE_K8S=${USE_K8S}"
 echo "SKIP_CB_TESTS=${SKIP_CB_TESTS}"
 
@@ -249,9 +249,9 @@ then
   docker-compose up -d
 fi
 
-waitForService curl -k https://$HOST:$PORT/actuator/health
+waitForService curl -k http://$HOST/actuator/health
 
-ACCESS_TOKEN=$(curl -k https://writer:secret@$HOST:$PORT/oauth2/token -d grant_type=client_credentials -s | jq .access_token -r)
+ACCESS_TOKEN=$(curl -k http://writer:secret@$HOST/oauth2/token -d grant_type=client_credentials -s | jq .access_token -r)
 echo ACCESS_TOKEN=$ACCESS_TOKEN
 AUTH="-H \"Authorization: Bearer $ACCESS_TOKEN\""
 
@@ -260,54 +260,54 @@ setupTestdata
 waitForMessageProcessing
 
 # Verify that a normal request works, expect three recommendations and three reviews
-assertCurl 200 "curl $AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS -s"
+assertCurl 200 "curl $AUTH -k http://$HOST/product-composite/$PROD_ID_REVS_RECS -s"
 assertEqual $PROD_ID_REVS_RECS $(echo $RESPONSE | jq .productId)
 assertEqual 3 $(echo $RESPONSE | jq ".recommendations | length")
 assertEqual 3 $(echo $RESPONSE | jq ".reviews | length")
 
 # Verify that a 404 (Not Found) error is returned for a non-existing productId ($PROD_ID_NOT_FOUND)
-assertCurl 404 "curl $AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_NOT_FOUND -s"
+assertCurl 404 "curl $AUTH -k http://$HOST/product-composite/$PROD_ID_NOT_FOUND -s"
 assertEqual "No product found for productId: $PROD_ID_NOT_FOUND" "$(echo $RESPONSE | jq -r .message)"
 
 # Verify that no recommendations are returned for productId $PROD_ID_NO_RECS
-assertCurl 200 "curl $AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_NO_RECS -s"
+assertCurl 200 "curl $AUTH -k http://$HOST/product-composite/$PROD_ID_NO_RECS -s"
 assertEqual $PROD_ID_NO_RECS $(echo $RESPONSE | jq .productId)
 assertEqual 0 $(echo $RESPONSE | jq ".recommendations | length")
 assertEqual 3 $(echo $RESPONSE | jq ".reviews | length")
 
 # Verify that no reviews are returned for productId $PROD_ID_NO_REVS
-assertCurl 200 "curl $AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_NO_REVS -s"
+assertCurl 200 "curl $AUTH -k http://$HOST/product-composite/$PROD_ID_NO_REVS -s"
 assertEqual $PROD_ID_NO_REVS $(echo $RESPONSE | jq .productId)
 assertEqual 3 $(echo $RESPONSE | jq ".recommendations | length")
 assertEqual 0 $(echo $RESPONSE | jq ".reviews | length")
 
 # Verify that a 422 (Unprocessable Entity) error is returned for a productId that is out of range (-1)
-assertCurl 422 "curl $AUTH -k https://$HOST:$PORT/product-composite/-1 -s"
+assertCurl 422 "curl $AUTH -k http://$HOST/product-composite/-1 -s"
 assertEqual "\"Invalid productId: -1\"" "$(echo $RESPONSE | jq .message)"
 
 # Verify that a 400 (Bad Request) error error is returned for a productId that is not a number, i.e. invalid format
-assertCurl 400 "curl $AUTH -k https://$HOST:$PORT/product-composite/invalidProductId -s"
+assertCurl 400 "curl $AUTH -k http://$HOST/product-composite/invalidProductId -s"
 assertEqual "\"Type mismatch.\"" "$(echo $RESPONSE | jq .message)"
 
 # Verify that a request without access token fails on 401, Unauthorized
-assertCurl 401 "curl -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS -s"
+assertCurl 401 "curl -k http://$HOST/product-composite/$PROD_ID_REVS_RECS -s"
 
 # Verify that the reader - client with only read scope can call the read API but not delete API.
-READER_ACCESS_TOKEN=$(curl -k https://reader:secret@$HOST:$PORT/oauth2/token -d grant_type=client_credentials -s | jq .access_token -r)
+READER_ACCESS_TOKEN=$(curl -k http://reader:secret@$HOST/oauth2/token -d grant_type=client_credentials -s | jq .access_token -r)
 echo READER_ACCESS_TOKEN=$READER_ACCESS_TOKEN
 READER_AUTH="-H \"Authorization: Bearer $READER_ACCESS_TOKEN\""
 
-assertCurl 200 "curl $READER_AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS -s"
-assertCurl 403 "curl -X DELETE $READER_AUTH -k https://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS -s"
+assertCurl 200 "curl $READER_AUTH -k http://$HOST/product-composite/$PROD_ID_REVS_RECS -s"
+assertCurl 403 "curl -X DELETE $READER_AUTH -k http://$HOST/product-composite/$PROD_ID_REVS_RECS -s"
 
 # Verify access to Swagger and OpenAPI URLs
 echo "Swagger/OpenAPI tests"
-assertCurl 302 "curl -ks  https://$HOST:$PORT/openapi/swagger-ui.html"
-assertCurl 200 "curl -ksL https://$HOST:$PORT/openapi/swagger-ui.html"
-assertCurl 200 "curl -ks  https://$HOST:$PORT/openapi/webjars/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config"
-assertCurl 200 "curl -ks  https://$HOST:$PORT/openapi/v3/api-docs"
+assertCurl 302 "curl -ks  http://$HOST/openapi/swagger-ui.html"
+assertCurl 200 "curl -ksL http://$HOST/openapi/swagger-ui.html"
+assertCurl 200 "curl -ks  http://$HOST/openapi/webjars/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config"
+assertCurl 200 "curl -ks  http://$HOST/openapi/v3/api-docs"
 assertEqual "3.0.1" "$(echo $RESPONSE | jq -r .openapi)"
-assertCurl 200 "curl -ks  https://$HOST:$PORT/openapi/v3/api-docs.yaml"
+assertCurl 200 "curl -ks  http://$HOST/openapi/v3/api-docs.yaml"
 
 if [[ $SKIP_CB_TESTS == "false" ]]
 then

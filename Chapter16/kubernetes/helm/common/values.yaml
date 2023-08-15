@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: quangsa
-  tag: latest
+  tag: 17
   pullPolicy: IfNotPresent
   args: []
 

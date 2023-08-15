@@ -15,6 +15,8 @@ ingress:
       service: product-composite
     - path: /webjars
       service: product-composite
+    - path: /zipkin
+      service: zipkin
 
 secrets:
 

@@ -7,8 +7,8 @@ ingress:
     secretName: tls-certificate
 
 image:
-  repository: quangsa
-  tag: latest
+  repository: public.ecr.aws/d5q3k8a0
+  tag: 17
   pullPolicy: IfNotPresent
   args: []
 
