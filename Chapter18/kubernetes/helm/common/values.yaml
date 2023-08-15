@@ -7,9 +7,9 @@ ingress:
     secretName: tls-certificate
 
 image:
-  repository: hands-on
-  tag: latest
-  pullPolicy: Never
+  repository: public.ecr.aws/d5q3k8a0
+  tag: 18
+  pullPolicy: IfNotPresent
   args: []
 
 ports:
