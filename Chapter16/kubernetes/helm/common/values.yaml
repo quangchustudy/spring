@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: public.ecr.aws/d5q3k8a0
-  tag: 16
+  tag: latest
   pullPolicy: IfNotPresent
   args: []
 
