@@ -8,7 +8,7 @@ ingress:
 
 image:
   repository: public.ecr.aws/d5q3k8a0
-  tag: 18
+  tag: v18
   pullPolicy: IfNotPresent
   args: []
 

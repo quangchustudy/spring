@@ -17,9 +17,10 @@ helm install --dry-run --debug hands-on-dev-env \
 #To initiate the deployment of the complete system landscape including creating the Namespace, hands-on, run the following command:
 helm install hands-on-dev-env \
   kubernetes/helm/environments/dev-env \
-  -n hands-on \
+  -n hands-on-c16 \
   --create-namespace
 
+kubectl config set-context $(kubectl config current-context) --namespace=hands-on-c16
 
 #test
 HOST=ad12e05c40aeb4a06a7f188391e91923-821040255.ap-southeast-1.elb.amazonaws.com PORT=443 USE_K8S=true ./test-em-all.bash

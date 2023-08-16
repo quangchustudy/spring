@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: quangsa
-  tag: 17
+  repository: public.ecr.aws/d5q3k8a0
+  tag: 16
   pullPolicy: IfNotPresent
   args: []
 
