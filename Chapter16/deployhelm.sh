@@ -22,5 +22,9 @@ helm install hands-on-dev-env \
 
 kubectl config set-context $(kubectl config current-context) --namespace=hands-on-c16
 
+kubectl expose deployment zipkin-server  --type=LoadBalancer  --name=service-zipkin
+
+kubectl get svc
+
 #test
-HOST=ad12e05c40aeb4a06a7f188391e91923-821040255.ap-southeast-1.elb.amazonaws.com PORT=443 USE_K8S=true ./test-em-all.bash
+HOST=a78fa8cf2fdd24e8896d5c7accf9bd2e-485482072.ap-southeast-1.elb.amazonaws.com PORT=443 USE_K8S=true ./test-em-all.bash

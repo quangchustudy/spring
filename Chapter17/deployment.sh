@@ -1,3 +1,12 @@
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install cert-manager jetstack/cert-manager \
+  --create-namespace \
+  --namespace cert-manager \
+  --version v1.3.1 \
+  --set installCRDs=true \
+  --wait
+
 #First, we update the dependencies in the components folder
 for f in kubernetes/helm/components/*; do helm dep up $f; done
 
