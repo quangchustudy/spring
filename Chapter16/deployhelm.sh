@@ -28,3 +28,16 @@ kubectl get svc
 
 #test
 HOST=a78fa8cf2fdd24e8896d5c7accf9bd2e-485482072.ap-southeast-1.elb.amazonaws.com PORT=443 USE_K8S=true ./test-em-all.bash
+
+#check each template file
+cd $BOOK_HOME/Chapter16/kubernetes/helm
+for f in components/*; do helm dependency update $f; done
+helm dependency update environments/dev-env
+helm template environments/dev-env -s templates/secrets.yaml
+
+#check template file
+cd $BOOK_HOME/Chapter16/kubernetes/helm/components/config-server
+helm dependency update .
+helm template . -s templates/configmap_from_file.yaml
+
+for f in components/*; do print $f; done
