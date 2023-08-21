@@ -27,4 +27,4 @@ dependencies:
   repository: file://components/product-composite
   version: 1.0.0
 digest: sha256:35855d36c4df84791a17bef7570b53089c449e4006069344773519d6af0e4dbb
-generated: "2023-08-21T09:44:40.876772+07:00"
+generated: "2023-08-21T09:46:11.614704+07:00"
