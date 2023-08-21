@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
-    path: teams/team-riker/dev
+    path: Chapter15/kubernetes/first-attempts
     helm:
       values: |
         {{- toYaml .Values | nindent 8 }}
