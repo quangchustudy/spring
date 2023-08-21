@@ -6,38 +6,74 @@ version: 1.0.0
 
 dependencies:
 
+#  - name: common
+#    version: 1.0.0
+#    repository: file://../../common
+#
+#  - name: rabbitmq
+#    version: 1.0.0
+#    repository: file://../../components/rabbitmq
+#
+#  - name: mongodb
+#    version: 1.0.0
+#    repository: file://../../components/mongodb
+#
+#  - name: mysql
+#    version: 1.0.0
+#    repository: file://../../components/mysql
+#
+#  - name: auth-server
+#    version: 1.0.0
+#    repository: file://../../components/auth-server
+#
+#  - name: product
+#    version: 1.0.0
+#    repository: file://../../components/product
+#
+#  - name: recommendation
+#    version: 1.0.0
+#    repository: file://../../components/recommendation
+#
+#  - name: review
+#    version: 1.0.0
+#    repository: file://../../components/review
+#
+#  - name: product-composite
+#    version: 1.0.0
+#    repository: file://../../components/product-composite
+
   - name: common
     version: 1.0.0
-    repository: file://../../common
+    repository: file://common
 
   - name: rabbitmq
     version: 1.0.0
-    repository: file://../../components/rabbitmq
+    repository: file://components/rabbitmq
 
   - name: mongodb
     version: 1.0.0
-    repository: file://../../components/mongodb
+    repository: file://components/mongodb
 
   - name: mysql
     version: 1.0.0
-    repository: file://../../components/mysql
+    repository: file://components/mysql
 
   - name: auth-server
     version: 1.0.0
-    repository: file://../../components/auth-server
+    repository: file://components/auth-server
 
   - name: product
     version: 1.0.0
-    repository: file://../../components/product
+    repository: file://components/product
 
   - name: recommendation
     version: 1.0.0
-    repository: file://../../components/recommendation
+    repository: file://components/recommendation
 
   - name: review
     version: 1.0.0
-    repository: file://../../components/review
+    repository: file://components/review
 
   - name: product-composite
     version: 1.0.0
-    repository: file://../../components/product-composite
+    repository: file://components/product-composite
